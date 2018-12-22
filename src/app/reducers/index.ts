@@ -8,7 +8,7 @@ export { RootState };
 // NOTE: current type definition of Reducer in 'redux-actions' module
 // doesn't go well with redux@4
 export const rootReducer = (history: History) => ({
-  router: createRouterReducer(history) as RouterReducerType,
+  router: createRouterReducer(history) as any,
   todos: todoReducer as any
 });
 
