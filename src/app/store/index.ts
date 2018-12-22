@@ -1,25 +1,25 @@
-import { Store, createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import Simred, { Store } from 'simred';
 import { logger } from 'app/middleware';
 import { RootState, rootReducer } from 'app/reducers';
+import { History } from 'history';
 
-export function configureStore(initialState?: RootState): Store<RootState> {
-  let middleware = applyMiddleware(logger);
+export function configureStore(history: History, initialState?: RootState): Store<RootState> {
+  
 
-  if (process.env.NODE_ENV !== 'production') {
-    middleware = composeWithDevTools(middleware);
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   middleware = composeWithDevTools(middleware);
+  // }
 
-  const store = createStore(rootReducer as any, initialState as any, middleware) as Store<
-    RootState
-  >;
+  const store = Simred.createStore(rootReducer(history) as any, initialState as any) as Store<RootState>
 
-  if (module.hot) {
-    module.hot.accept('app/reducers', () => {
-      const nextReducer = require('app/reducers');
-      store.replaceReducer(nextReducer);
-    });
-  }
+  store.addMiddleware(logger)
+
+  // if (module.hot) {
+  //   module.hot.accept('app/reducers', () => {
+  //     const nextReducer = require('app/reducers');
+  //     store.replaceReducer(nextReducer);
+  //   });
+  // }
 
   return store;
 }

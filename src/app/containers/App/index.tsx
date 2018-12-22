@@ -1,12 +1,9 @@
 import * as React from 'react';
 import * as style from './style.css';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { connect } from 'react-simred';
 import { RouteComponentProps } from 'react-router';
-import { TodoActions } from 'app/actions';
 import { RootState } from 'app/reducers';
 import { TodoModel } from 'app/models';
-import { omit } from 'app/utils';
 import { Header, TodoList, Footer } from 'app/components';
 
 const FILTER_VALUES = (Object.keys(TodoModel.Filter) as (keyof typeof TodoModel.Filter)[]).map(
@@ -22,19 +19,19 @@ const FILTER_FUNCTIONS: Record<TodoModel.Filter, (todo: TodoModel) => boolean> =
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
     todos: RootState.TodoState;
-    actions: TodoActions;
+    actions: any;
     filter: TodoModel.Filter;
   }
 }
 
-@connect(
+@connect<typeof App>(
   (state: RootState, ownProps): Pick<App.Props, 'todos' | 'filter'> => {
     const hash = ownProps.location && ownProps.location.hash.replace('#', '');
     const filter = FILTER_VALUES.find((value) => value === hash) || TodoModel.Filter.SHOW_ALL;
     return { todos: state.todos, filter };
   },
-  (dispatch: Dispatch): Pick<App.Props, 'actions'> => ({
-    actions: bindActionCreators(omit(TodoActions, 'Type'), dispatch)
+  (actions: any): Pick<App.Props, 'actions'> => ({
+    actions: {... actions.todos}
   })
 )
 export class App extends React.Component<App.Props> {

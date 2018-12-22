@@ -1,16 +1,16 @@
 import * as React from 'react';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import * as style from './style.css';
 import { TodoModel } from 'app/models';
-import { TodoActions } from 'app/actions';
 import { TodoTextInput } from '../TodoTextInput';
+import { TodoActions } from 'app/reducers/todos';
 
 export namespace TodoItem {
   export interface Props {
     todo: TodoModel;
-    editTodo: typeof TodoActions.editTodo;
-    deleteTodo: typeof TodoActions.deleteTodo;
-    completeTodo: typeof TodoActions.completeTodo;
+    editTodo: TodoActions["editTodo"];
+    deleteTodo: TodoActions["deleteTodo"];
+    completeTodo: TodoActions["completeTodo"];
   }
 
   export interface State {

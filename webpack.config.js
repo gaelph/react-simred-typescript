@@ -39,7 +39,10 @@ module.exports = {
         use: [
           !isProduction && {
             loader: 'babel-loader',
-            options: { plugins: ['react-hot-loader/babel'] }
+            options: { 
+              presets: ['esnext', 'react'],
+              plugins: ['react-hot-loader/babel']
+            }
           },
           'ts-loader'
         ].filter(Boolean)

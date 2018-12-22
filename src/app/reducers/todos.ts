@@ -1,6 +1,5 @@
-import { handleActions } from 'redux-actions';
+import { createReducer } from 'simred';
 import { RootState } from './state';
-import { TodoActions } from 'app/actions/todos';
 import { TodoModel } from 'app/models';
 
 const initialState: RootState.TodoState = [
@@ -11,43 +10,52 @@ const initialState: RootState.TodoState = [
   }
 ];
 
-export const todoReducer = handleActions<RootState.TodoState, TodoModel>(
-  {
-    [TodoActions.Type.ADD_TODO]: (state, action) => {
-      if (action.payload && action.payload.text) {
+export const actions =
+{
+    addTodo: (state: RootState.TodoState, actions: any, todo: TodoModel) => {
+      if (todo && todo.text) {
         return [
           {
             id: state.reduce((max, todo) => Math.max(todo.id || 1, max), 0) + 1,
             completed: false,
-            text: action.payload.text
+            text: todo.text
           },
           ...state
         ];
       }
       return state;
     },
-    [TodoActions.Type.DELETE_TODO]: (state, action) => {
-      return state.filter((todo) => todo.id !== (action.payload as any));
+    deleteTodo: (state: RootState.TodoState, actions: any, id: TodoModel['id']) => {
+      return state.filter((todo) => todo.id !== (id));
     },
-    [TodoActions.Type.EDIT_TODO]: (state, action) => {
+    editTodo: (state: RootState.TodoState, actions: any, payload: TodoModel) => {
       return state.map((todo) => {
-        if (!todo || !action || !action.payload) {
+        if (!todo || !payload) {
           return todo;
         }
-        return (todo.id || 0) === action.payload.id ? { ...todo, text: action.payload.text } : todo;
+        return (todo.id || 0) === payload.id ? { ...todo, text: payload.text } : todo;
       });
     },
-    [TodoActions.Type.COMPLETE_TODO]: (state, action) => {
+    completeTodo: (state: RootState.TodoState, actions: any, id: TodoModel['id']) => {
       return state.map((todo) =>
-        todo.id === (action.payload as any) ? { ...todo, completed: !todo.completed } : todo
+        todo.id === (id as any) ? { ...todo, completed: !todo.completed } : todo
       );
     },
-    [TodoActions.Type.COMPLETE_ALL]: (state, action) => {
+    completeAll: (state: RootState.TodoState, actions: any) => {
       return state.map((todo) => ({ ...todo, completed: true }));
     },
-    [TodoActions.Type.CLEAR_COMPLETED]: (state, action) => {
+    clearCompleted: (state: RootState.TodoState, actions: any) => {
       return state.filter((todo) => todo.completed === false);
     }
-  },
-  initialState
-);
+}
+
+export type TodoActions = {
+  addTodo: (todo: Partial<TodoModel>) => void
+  deleteTodo: (id: TodoModel["id"]) => void
+  editTodo: (todo: Partial<TodoModel>) => void
+  completeTodo: (todo: TodoModel["id"]) => void
+  completeAll: () => void
+  clearCompleted: () => void
+}
+  
+export const todoReducer = createReducer<typeof actions>(actions, initialState)
