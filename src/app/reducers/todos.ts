@@ -1,3 +1,4 @@
+import { RootReducer } from './index';
 import { createReducer } from 'simred';
 import { RootState } from './state';
 import { TodoModel } from 'app/models';
@@ -12,41 +13,41 @@ const initialState: RootState.TodoState = [
 
 export const actions =
 {
-    addTodo: (state: RootState.TodoState, actions: any, todo: TodoModel) => {
-      if (todo && todo.text) {
-        return [
-          {
-            id: state.reduce((max, todo) => Math.max(todo.id || 1, max), 0) + 1,
-            completed: false,
-            text: todo.text
-          },
-          ...state
-        ];
-      }
-      return state;
-    },
-    deleteTodo: (state: RootState.TodoState, actions: any, id: TodoModel['id']) => {
-      return state.filter((todo) => todo.id !== (id));
-    },
-    editTodo: (state: RootState.TodoState, actions: any, payload: TodoModel) => {
-      return state.map((todo) => {
-        if (!todo || !payload) {
-          return todo;
-        }
-        return (todo.id || 0) === payload.id ? { ...todo, text: payload.text } : todo;
-      });
-    },
-    completeTodo: (state: RootState.TodoState, actions: any, id: TodoModel['id']) => {
-      return state.map((todo) =>
-        todo.id === (id as any) ? { ...todo, completed: !todo.completed } : todo
-      );
-    },
-    completeAll: (state: RootState.TodoState, actions: any) => {
-      return state.map((todo) => ({ ...todo, completed: true }));
-    },
-    clearCompleted: (state: RootState.TodoState, actions: any) => {
-      return state.filter((todo) => todo.completed === false);
+  addTodo: (state: RootState.TodoState, actions: RootReducer, todo: TodoModel) => {
+    if (todo && todo.text) {
+      return [
+        {
+          id: state.reduce((max, todo) => Math.max(todo.id || 1, max), 0) + 1,
+          completed: false,
+          text: todo.text
+        },
+        ...state
+      ];
     }
+    return state;
+  },
+  deleteTodo: (state: RootState.TodoState, actions: RootReducer, id: TodoModel['id']) => {
+    return state.filter((todo) => todo.id !== (id));
+  },
+  editTodo: (state: RootState.TodoState, actions: any, payload: TodoModel) => {
+    return state.map((todo) => {
+      if (!todo || !payload) {
+        return todo;
+      }
+      return (todo.id || 0) === payload.id ? { ...todo, text: payload.text } : todo;
+    });
+  },
+  completeTodo: (state: RootState.TodoState, actions: RootReducer, id: TodoModel['id']) => {
+    return state.map((todo) =>
+      todo.id === (id as any) ? { ...todo, completed: !todo.completed } : todo
+    );
+  },
+  completeAll: (state: RootState.TodoState, actions: RootReducer) => {
+    return state.map((todo) => ({ ...todo, completed: true }));
+  },
+  clearCompleted: (state: RootState.TodoState, actions: RootReducer) => {
+    return state.filter((todo) => todo.completed === false);
+  }
 }
 
 export type TodoActions = {
@@ -57,5 +58,5 @@ export type TodoActions = {
   completeAll: () => void
   clearCompleted: () => void
 }
-  
+
 export const todoReducer = createReducer<typeof actions>(actions, initialState)
