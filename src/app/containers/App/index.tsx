@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as style from './style.css';
 import { connect } from 'react-simred';
 import { RouteComponentProps } from 'react-router';
-import { RootState } from 'app/reducers';
+import { RootState, RootReducer } from 'app/reducers';
+import { TodoActions } from 'app/reducers/todos'
 import { TodoModel } from 'app/models';
 import { Header, TodoList, Footer } from 'app/components';
 
@@ -19,7 +20,7 @@ const FILTER_FUNCTIONS: Record<TodoModel.Filter, (todo: TodoModel) => boolean> =
 export namespace App {
   export interface Props extends RouteComponentProps<void> {
     todos: RootState.TodoState;
-    actions: any;
+    actions: TodoActions;
     filter: TodoModel.Filter;
   }
 }
@@ -30,7 +31,7 @@ export namespace App {
     const filter = FILTER_VALUES.find((value) => value === hash) || TodoModel.Filter.SHOW_ALL;
     return { todos: state.todos, filter };
   },
-  (actions: any): Pick<App.Props, 'actions'> => ({
+  (actions: RootReducer): Pick<App.Props, 'actions'> => ({
     actions: {... actions.todos}
   })
 )
