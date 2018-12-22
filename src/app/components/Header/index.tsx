@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { TodoTextInput } from '../TodoTextInput';
-import { TodoActions } from 'app/reducers/todos'
+import { TodoActions } from 'app/reducers/todos';
 
 export namespace Header {
   export interface Props {
-    addTodo: TodoActions["addTodo"]
+    addTodo: TodoActions['addTodo'];
   }
 }
 

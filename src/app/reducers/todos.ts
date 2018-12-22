@@ -11,8 +11,7 @@ const initialState: RootState.TodoState = [
   }
 ];
 
-export const actions =
-{
+export const actions = {
   addTodo: (state: RootState.TodoState, actions: RootReducer, todo: TodoModel) => {
     if (todo && todo.text) {
       return [
@@ -27,7 +26,7 @@ export const actions =
     return state;
   },
   deleteTodo: (state: RootState.TodoState, actions: RootReducer, id: TodoModel['id']) => {
-    return state.filter((todo) => todo.id !== (id));
+    return state.filter((todo) => todo.id !== id);
   },
   editTodo: (state: RootState.TodoState, actions: any, payload: TodoModel) => {
     return state.map((todo) => {
@@ -48,15 +47,15 @@ export const actions =
   clearCompleted: (state: RootState.TodoState, actions: RootReducer) => {
     return state.filter((todo) => todo.completed === false);
   }
-}
+};
 
 export type TodoActions = {
-  addTodo: (todo: Partial<TodoModel>) => void
-  deleteTodo: (id: TodoModel["id"]) => void
-  editTodo: (todo: Partial<TodoModel>) => void
-  completeTodo: (todo: TodoModel["id"]) => void
-  completeAll: () => void
-  clearCompleted: () => void
-}
+  addTodo: (todo: Partial<TodoModel>) => void;
+  deleteTodo: (id: TodoModel['id']) => void;
+  editTodo: (todo: Partial<TodoModel>) => void;
+  completeTodo: (todo: TodoModel['id']) => void;
+  completeAll: () => void;
+  clearCompleted: () => void;
+};
 
-export const todoReducer = createReducer<typeof actions>(actions, initialState)
+export const todoReducer = createReducer<typeof actions>(actions, initialState);

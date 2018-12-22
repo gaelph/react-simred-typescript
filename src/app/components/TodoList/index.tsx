@@ -3,7 +3,7 @@ import * as style from './style.css';
 import { TodoItem } from '../TodoItem';
 import { TodoModel } from 'app/models/TodoModel';
 
-import { TodoActions } from 'app/reducers/todos'
+import { TodoActions } from 'app/reducers/todos';
 
 export namespace TodoList {
   export interface Props {

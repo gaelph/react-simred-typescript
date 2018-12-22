@@ -3,7 +3,7 @@ import * as style from './style.css';
 import { connect } from 'react-simred';
 import { RouteComponentProps } from 'react-router';
 import { RootState, RootReducer } from 'app/reducers';
-import { TodoActions } from 'app/reducers/todos'
+import { TodoActions } from 'app/reducers/todos';
 import { TodoModel } from 'app/models';
 import { Header, TodoList, Footer } from 'app/components';
 
@@ -32,7 +32,7 @@ export namespace App {
     return { todos: state.todos, filter };
   },
   (actions: RootReducer): Pick<App.Props, 'actions'> => ({
-    actions: {... actions.todos}
+    actions: { ...actions.todos }
   })
 )
 export class App extends React.Component<App.Props> {

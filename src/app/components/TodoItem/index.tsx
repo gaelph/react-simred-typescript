@@ -8,9 +8,9 @@ import { TodoActions } from 'app/reducers/todos';
 export namespace TodoItem {
   export interface Props {
     todo: TodoModel;
-    editTodo: TodoActions["editTodo"];
-    deleteTodo: TodoActions["deleteTodo"];
-    completeTodo: TodoActions["completeTodo"];
+    editTodo: TodoActions['editTodo'];
+    deleteTodo: TodoActions['deleteTodo'];
+    completeTodo: TodoActions['completeTodo'];
   }
 
   export interface State {

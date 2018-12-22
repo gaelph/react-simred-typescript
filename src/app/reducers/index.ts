@@ -1,6 +1,6 @@
 import { RootState } from './state';
 import { todoReducer, TodoActions } from './todos';
-import { createRouterReducer, RouterReducerType } from 'simred-react-router' 
+import { createRouterReducer, RouterReducerType } from 'simred-react-router';
 import { History } from 'history';
 
 export { RootState };
@@ -10,9 +10,9 @@ export { RootState };
 export const rootReducer = (history: History) => ({
   router: createRouterReducer(history) as RouterReducerType,
   todos: todoReducer as any
-})
+});
 
 export type RootReducer = {
-  router: RouterReducerType,
-  todos: TodoActions
-}
+  router: RouterReducerType;
+  todos: TodoActions;
+};
