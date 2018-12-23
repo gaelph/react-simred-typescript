@@ -58,4 +58,4 @@ export type TodoActions = {
   clearCompleted: () => void;
 };
 
-export const todoReducer = createReducer<typeof actions>(actions, initialState);
+export const todoReducer = createReducer(actions, initialState);
