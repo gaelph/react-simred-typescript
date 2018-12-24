@@ -1,8 +1,6 @@
-# Frontend Boilerplate with React, Redux & TypeScript
+# Frontend Boilerplate with React, Simred & TypeScript
 
-A bare minimum react-redux-webpack-typescript boilerplate with TodoMVC example. 
-
-[Live demo](https://rokoroku.github.io/react-redux-typescript-boilerplate)
+A bare minimum react-simred-webpack-typescript boilerplate with TodoMVC example. 
 
 Note that this project does not include **Server-Side Rendering**, **Static code analysis**, **Testing Frameworks** and other stuffs that makes the package unnecessarily complicated. (e.g. yarn, tslint, jest, ...)  
 If needed, please fork this repository and add your own that meets your requirements.
@@ -15,9 +13,9 @@ See also: [react-mobx-typescript-boilerplate](https://github.com/rokoroku/react-
 
 - [x] [Typescript](https://www.typescriptlang.org/) 3
 - [x] [React](https://facebook.github.io/react/) 16.5
-- [x] [Redux](https://github.com/reactjs/redux) 4
-- [x] [React Router](https://github.com/ReactTraining/react-router) 4.3
-- [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
+- [x] [Simred](https://github.com/gaelph/simred)
+- [x] [Simred Router](https://github.com/gaelph/simred-react-router)
+- [x] [Simred DevTools Extension](https://github.com/gaelph/simred-dev-tools)
 - [x] [TodoMVC example](http://todomvc.com)
 
 ### Build tools
