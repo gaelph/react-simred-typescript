@@ -59,6 +59,7 @@
     "react-router": "^4.3.1",
     "react-simred": "file:/Users/gaelphilippe/IdeaProjects/simred/react-simred",
     "simred": "file:/Users/gaelphilippe/IdeaProjects/simred/simred",
-    "simred-react-router": "file:/Users/gaelphilippe/IdeaProjects/simred/simred-react-router"
+    "simred-react-router": "file:/Users/gaelphilippe/IdeaProjects/simred/simred-react-router",
+    "simred-dev-tools": "file:/Users/gaelphilippe/IdeaProjects/simred/simred-dev-tools"
   }
 }
