@@ -1,16 +1,14 @@
 import Simred, { Store } from 'simred';
 import { logger } from 'app/middleware';
-import { RootState, rootReducer } from 'app/reducers';
+import { RootState, RootReducer, rootReducer } from 'app/reducers';
 import { History } from 'history';
 
-export function configureStore(history: History, initialState?: RootState): Store<RootState> {
+export function configureStore(history: History, initialState?: RootState): Store<RootState, RootReducer> {
   // if (process.env.NODE_ENV !== 'production') {
   //   middleware = composeWithDevTools(middleware);
   // }
 
-  const store = Simred.createStore(rootReducer(history) as any, initialState as any) as Store<
-    RootState
-  >;
+  const store: Store<RootState, RootReducer> = Simred.createStore<RootReducer, RootState>(rootReducer(history), initialState);
 
   store.addMiddleware(logger);
 
