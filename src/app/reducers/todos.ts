@@ -1,4 +1,3 @@
-import { RootReducer } from './index';
 import { createReducer } from 'simred';
 import { RootState } from './state';
 import { TodoModel } from 'app/models';
@@ -12,7 +11,7 @@ const initialState: RootState.TodoState = [
 ];
 
 export const actions = {
-  addTodo: (state: RootState.TodoState, actions: RootReducer, todo: TodoModel) => {
+  addTodo: (state: RootState.TodoState) => (todo: TodoModel) => {
     if (todo && todo.text) {
       return [
         {
@@ -25,10 +24,10 @@ export const actions = {
     }
     return state;
   },
-  deleteTodo: (state: RootState.TodoState, actions: RootReducer, id: TodoModel['id']) => {
+  deleteTodo: (state: RootState.TodoState) => (id: TodoModel['id']) => {
     return state.filter((todo) => todo.id !== id);
   },
-  editTodo: (state: RootState.TodoState, actions: any, payload: TodoModel) => {
+  editTodo: (state: RootState.TodoState) => (payload: TodoModel) => {
     return state.map((todo) => {
       if (!todo || !payload) {
         return todo;
@@ -36,15 +35,15 @@ export const actions = {
       return (todo.id || 0) === payload.id ? { ...todo, text: payload.text } : todo;
     });
   },
-  completeTodo: (state: RootState.TodoState, actions: RootReducer, id: TodoModel['id']) => {
+  completeTodo: (state: RootState.TodoState) => (id: TodoModel['id']) => {
     return state.map((todo) =>
       todo.id === (id as any) ? { ...todo, completed: !todo.completed } : todo
     );
   },
-  completeAll: (state: RootState.TodoState, actions: RootReducer) => {
+  completeAll: (state: RootState.TodoState) => () => {
     return state.map((todo) => ({ ...todo, completed: true }));
   },
-  clearCompleted: (state: RootState.TodoState, actions: RootReducer) => {
+  clearCompleted: (state: RootState.TodoState) => () => {
     return state.filter((todo) => todo.completed === false);
   }
 };
